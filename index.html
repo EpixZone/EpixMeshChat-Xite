@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <title>Epix Mesh Chat</title>
+  <link rel="stylesheet" href="css/app.css">
+  <script src="js/frame.js" defer></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <header class="masthead">
+    <div class="brand"><span class="brand-icon" aria-hidden="true">↗</span><div><strong>Epix Mesh Chat</strong><small>Public rooms and private groups.</small></div></div>
+    <div class="connection"><span id="connection-dot" class="dot"></span><span id="connection">Connecting to EpixNet</span><button id="refresh" class="quiet" type="button" aria-label="Refresh conversations">↻</button></div>
+  </header>
+  <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+  <section id="welcome" class="welcome" aria-labelledby="welcome-title">
+    <p class="eyebrow">YOUR LOCAL IDENTITY</p>
+    <h1 id="welcome-title">Create an offline profile</h1>
+    <p>Create a profile without an Internet connection. EpixNet keeps your private keys on this device. You can link an xID later.</p>
+    <form id="profile-form">
+      <label for="display-name">Display name</label>
+      <div class="inline-form"><input id="display-name" name="display-name" maxlength="48" autocomplete="nickname" placeholder="What should people call you?" required><button id="create-profile" type="submit" disabled>Create local profile</button></div>
+      <small>A display name is not a verified xID. Check a person's profile address when identity matters.</small>
+    </form>
+    <p id="welcome-status" class="muted">Open this xite in EpixNet to connect.</p>
+  </section>
+  <main id="workspace" class="workspace" hidden>
+    <aside class="sidebar" aria-label="Conversations">
+      <section class="profile-card">
+        <div class="avatar" id="my-avatar" aria-hidden="true">?</div>
+        <div><strong id="my-name"></strong><small id="my-label">Local profile</small></div>
+        <button id="profile-details" class="quiet" type="button" aria-label="Profile details">⋯</button>
+      </section>
+      <div class="section-heading"><h2>Public rooms</h2><button id="add-room" class="quiet" type="button" aria-label="Open a public room">+</button></div>
+      <nav id="rooms" aria-label="Public rooms"></nav>
+      <div class="section-heading"><h2>Private groups</h2><button id="add-group" class="quiet" type="button" aria-label="Create a private group">+</button></div>
+      <nav id="groups" aria-label="Private groups"></nav>
+      <p id="no-groups" class="empty-nav">Make a group with people whose profiles have reached this device.</p>
+      <details class="offline-help"><summary>Using this offline</summary><p>Save this xite before going offline. Devices need a working mesh or LAN connection and the same xite address.</p><p>Recent messages stay on your device and can be shared when peers connect. History is bounded; older messages may be removed. Public rooms can be read by anyone who downloads this xite.</p><p>Keep an EpixNet backup to preserve your local identity.</p></details>
+    </aside>
+    <section class="conversation" aria-labelledby="conversation-title">
+      <header class="conversation-header"><div><p class="eyebrow" id="conversation-kind">PUBLIC ROOM</p><h1 id="conversation-title"># commons</h1><p id="conversation-detail">Visible to everyone who downloads this xite.</p></div><span id="people-count" class="pill"></span></header>
+      <div id="messages" class="messages" role="log" aria-live="polite" aria-relevant="additions text"></div>
+      <form id="message-form" class="composer">
+        <label class="sr-only" for="message">Message</label>
+        <textarea id="message" name="message" rows="2" maxlength="2048" placeholder="Write a message…" required></textarea>
+        <div class="compose-actions"><small id="send-status">Recent history is stored locally and shared when peers are reachable.</small><button id="send" type="submit">Send message <span aria-hidden="true">↗</span></button></div>
+      </form>
+    </section>
+  </main>
+  <dialog id="room-dialog"><form id="room-form"><div class="dialog-heading"><h2>Open a public room</h2><button type="button" class="quiet close-dialog" aria-label="Close">×</button></div><p>People using the same room name can talk here. Anyone who downloads this xite can read public messages.</p><label for="room-name">Room name</label><input id="room-name" maxlength="48" pattern="[a-z0-9][a-z0-9_-]{0,47}" placeholder="neighborhood" required><small>Use lowercase letters, numbers, underscores or hyphens.</small><button type="submit">Open room</button></form></dialog>
+  <dialog id="group-dialog"><form id="group-form"><div class="dialog-heading"><h2>Create a private group</h2><button type="button" class="quiet close-dialog" aria-label="Close">×</button></div><label for="group-title">Group name</label><input id="group-title" maxlength="64" placeholder="Our group" required><fieldset><legend>Choose people</legend><div id="group-people"></div></fieldset><p class="muted">Messages are encrypted for these members. Anyone with access to a member’s device or keys may read them. Membership is fixed. Create a new group to add or remove someone.</p><p id="group-empty" hidden>No other profiles have reached this device yet. Connect to a peer with this xite, then refresh.</p><button id="create-group" type="submit">Create private group</button></form></dialog>
+  <dialog id="profile-dialog"><div class="dialog-heading"><h2>Your local profile</h2><button type="button" class="quiet close-dialog" aria-label="Close">×</button></div><p>Your profile address stays the same when you link an xID.</p><label for="profile-address">Profile address</label><input id="profile-address" readonly><p id="xid-status">No xID linked.</p><button id="link-xid" type="button">Link an xID</button><p class="muted">Linking needs an existing xID and sufficient cached or current verification data. Offline chat does not require one.</p></dialog>
+</body>
+</html>

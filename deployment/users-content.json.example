@@ -1,0 +1,16 @@
+{
+  "address": "REPLACE_WITH_YOUR_XITE_ADDRESS",
+  "inner_path": "data/users/content.json",
+  "modified": 0,
+  "files": {},
+  "user_contents": {
+    "cert_signers": {},
+    "permissions": {},
+    "permission_rules": {
+      ".*": {
+        "max_size": 1048576,
+        "files_allowed": "data\\.json"
+      }
+    }
+  }
+}
